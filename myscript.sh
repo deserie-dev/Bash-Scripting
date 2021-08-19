@@ -137,3 +137,30 @@ mkdir hello
 touch "hello/world.txt"
 echo "Hello World" >> "hello/world.txt"
 echo "Created hello/world.txt"
+
+# ARITHMETIC -
+#  using built-in function let
+let a=3+3
+echo $a # 6
+
+let a++
+echo $a #7
+
+let "a = 2 * 5"
+echo $a # 10
+
+# var++	Increase the variable var by 1
+# var--	Decrease the variable var by 1
+# %	Modulus (Return the remainder after division)
+
+# using expr - instead of saving result to a variable like liet, expr prints the answer
+expr 5 + 4
+
+# Double Parentheses
+# $(( expression )) Return the result of the expression.
+a=$(( 4 + 5 ))
+echo $a # 9
+
+# Length of a Variable - how many characters - ${#variable}
+a='Hello World'
+echo ${#a} # 11
