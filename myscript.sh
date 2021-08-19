@@ -111,13 +111,77 @@ for FILE in $FILES
     mv $FILE $NEW-$FILE
 done
 
-# WHILE LOOP - READ THROUGH A FILE LINE BY LINE
+# WHILE LOOP -  while an expression is true, keep executing these lines of code
+while [ <some test> ]
+do
+  <commands>
+done
+# e.g. read through line by line
 LINE=1
 while read -r CURRENT_LINE
   do
     echo "$LINE: $CURRENT_LINE"
     ((LINE++))
 done < "./new-1.txt"
+# e.g. print numbers 1 to 10
+counter=1 #initialize variable counter with initial value
+while [ $counter -le 10 ] # while counter is less than or equal to
+do
+  echo $counter
+  ((counter++)) # using double brackets we can increase the value of counter by 1
+done
+echo All done
+
+# UNTIL LOOPS - similar to while loop but  will execute the commands within it until the test becomes true
+until [ <some test> ]
+do
+<commands>
+done
+
+# FOR LOOPS - for each of the items in a given list, perform the given set of commands.
+for var in <list>
+do
+<commands>
+done
+# e.g.
+names='Stan Kyle Cartman'
+
+for name in $names # For each of the items in the list $names assign the item to the variable $name and do the following commands.
+do
+  echo $name
+done
+  echo All done
+
+# Ranges - process a series of numbers
+for value in {1..5} # no spaces present between the curly brackets { }. If there are then it will not be seen as a range but as a list of items.
+do
+  echo $value
+done
+echo All done  
+
+# Controlling Loops: Break and Continue
+# break tells Bash to leave the loop straight away e.g. maybe we are copying files but if the free disk space get's below a certain level we should stop copying.
+for value in $1/*
+do
+  used=$( df $1 | tail -1 | awk '{ print $5 }' | sed 's/%//' )
+  if [ $used -gt 90 ]
+  then
+    echo Low disk space 1>&2
+    break
+  fi
+  cp $value $1/backup/
+done
+# continue tells Bash to stop running through this iteration of the loop and begin the next iteration.
+# e.g. we are using the loop to process a series of files but if we happen upon a file which we don't have the read permission for we should not try to process it.
+for value in $1/*
+do
+  if [ ! -r $value ]
+  then
+    echo $value not readable 1>&2
+    continue
+  fi
+  cp $value $1/backup/
+done
 
 # FUNCTION
 function sayHello() {
