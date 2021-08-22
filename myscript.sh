@@ -12,9 +12,19 @@ NAME="Deserie"
 # To refernece a defined variable use $ before variable. 
 echo "My name is $NAME"
 
-# USER INPUT
+# USER INPUT - to get user input, use the command read. This command takes the input and will save it into a variable.
+
+read var1
 read -p "Enter your name: " USERNAME
 echo "Hello $USERNAME, nice to meet you."
+
+# options with read: -p  allows you to specify a prompt and -s which makes the input silent.
+# Ask the user for login details
+read -p 'Username: ' uservar
+read -sp 'Password: ' passvar
+echo
+echo Thankyou $uservar we now have your login details
+
 
 # SIMPLE IF STATEMENT
 if [ "$NAME" == "Deserie" ]
@@ -195,6 +205,11 @@ function greet() {
 }
 
 greet "Deserie" "21"
+
+# Variable Scope - Scope refers to which parts of a script can see which variables. By default a variable is global(visible everywhere in the script)
+# We may also create a variable as a local variable. When we create a local variable within a function, it is only visible within that function. To do that we use the keyword local in front of the variable the first time we set it's value.
+# local var_name=<var_value> (good practice to use local variables within functions)
+
 
 # CREATE FOLDER AND WRITE TO A FILE
 mkdir hello
